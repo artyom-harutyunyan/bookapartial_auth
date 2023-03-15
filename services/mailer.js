@@ -64,6 +64,7 @@ class MailerService {
     }
 
     sendEmail = async (email) => {
+        
           const emailOptions = {
             from: 'signup@bookpartials.com',
             to: email,
