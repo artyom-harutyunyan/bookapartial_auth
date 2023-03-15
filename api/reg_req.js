@@ -3,6 +3,7 @@ import RegistrationReqSchema from '../schema/registration_req.js'
 import User from '../schema/users.js'
 import BaseService from '../services/microservice.js'
 // import data from '../data.json' assert {type: 'json'}
+import MailerService from '../services/mailer.js'
 
 class RegistrationRequestsController {
 
@@ -98,8 +99,9 @@ class RegistrationRequestsController {
     }
 
     activate = async (req, res) => {
-        const { id, isActive } = req.body
+        const { id, isActive, email } = req.body
         await BaseService.activate(id, isActive)
+        if (isActive) MailerService.sendEmail(email)
         return res.send({ success: true, message: `User ${isActive ? 'activated' : 'blocked'}` })
     }
 
